@@ -1,0 +1,10 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: s3_simple
+info:
+  description: sample description
+inventory:
+  namespace: default
+  name: inventory-70906944
+  inventoryID: a722fa266fef27e4c4cd28b3751db4c571a7ed8a-1640641299207778000
