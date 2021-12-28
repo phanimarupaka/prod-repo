@@ -1,0 +1,42 @@
+# This is a basic workflow that is manually triggered
+
+name: CI
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+      - '*/v[0-9]+.[0-9]+'
+
+jobs:
+  e2e-ci:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        node-version: [12.x]
+    runs-on: ${{ matrix.platform }}
+    env:
+      GOPATH: /home/runner/work/prod-repo
+      GO111MODULE: on
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Set up Go 1.16
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+    - name: Install kpt
+      run: |
+        go get github.com/GoogleContainerTools/kpt@main
+    - name: Build node and Go docker images
+      if: matrix.platform == 'ubuntu-latest'
+      run: |
+        kpt fn render
