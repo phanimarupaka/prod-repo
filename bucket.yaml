@@ -5,5 +5,5 @@ metadata:
 spec:
   deletionPolicy: Delete
   forProvider:
-    acl: public-read
+    acl: private
     locationConstraint: us-west-1
