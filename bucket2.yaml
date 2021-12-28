@@ -1,9 +1,0 @@
-apiVersion: s3.aws.crossplane.io/v1beta1
-kind: Bucket
-metadata:
-  name: phani-test-bucket-2
-spec:
-  deletionPolicy: Delete
-  forProvider:
-    acl: private
-    locationConstraint: us-west-1
